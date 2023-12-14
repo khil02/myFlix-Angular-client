@@ -69,7 +69,7 @@ export class fetchApiDataService {
 
   getGenre(genreName: string): Observable<any> {
     const token = localStorage.getItem("token");
-    return this.http.get(apiUrl + "movies/" + genreName, {
+    return this.http.get(apiUrl + "movies/genre/" + genreName, {
       headers: new HttpHeaders(
         {
           Authorization: "Bearer " + token,
@@ -79,14 +79,86 @@ export class fetchApiDataService {
     );
   }
 
-  getUser(userID: string): Observable<any>{
+  getUser(): Observable<any>{
     const token = localStorage.getItem("token");
-    return this.http.get(apiUrl + "users/" + userID, {
+    const user = JSON.parse(localStorage.getItem("user") || '{}');
+    return this.http.get(apiUrl + "users/" + user.Username, {
       headers: new HttpHeaders(
         {
           Authorization: "Bearer " + token,
         })
     }).pipe(map(this.extractResponseData), 
+    catchError(this.handleError)
+    );
+  }
+
+  editUser(updates: any): Observable<any>{
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || '{}');
+    return this.http.put(apiUrl + "users/" + user.Username, updates, {
+      headers: new HttpHeaders(
+        {
+          Authorization: "Bearer " + token,
+        })
+    }).pipe(map(this.extractResponseData), 
+    catchError(this.handleError)
+    );
+  }
+
+  deleteUser(): Observable<any>{
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || '{}');
+    return this.http.delete(apiUrl + "users/" + user._id, {
+      headers: new HttpHeaders(
+        {
+          Authorization: "Bearer " + token,
+        })
+    }).pipe( 
+    catchError(this.handleError)
+    );
+  }
+
+  //this may won't work with how my API is set up, I'll have to see once I start testing
+  getUserFavorites(): Observable<any>{
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || '{}');
+    return this.http.get(apiUrl + "users/" + user.Username, {
+      headers: new HttpHeaders(
+        {
+          Authorization: "Bearer " + token,
+        })
+    }).pipe(map(this.extractResponseData), 
+    catchError(this.handleError)
+    );
+  }
+
+  addUserFavorites(movieID: string): Observable<any>{
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || '{}');
+
+    user.FavoriteMoives.push(movieID);    
+    return this.http.post(apiUrl + "users/" + user.Username + "/favorites/" + movieID, {
+      headers: new HttpHeaders(
+        {
+          Authorization: "Bearer " + token,
+        })
+    }).pipe(
+    map(this.extractResponseData),
+    catchError(this.handleError)
+    );
+  }
+
+  deleteUserFavorites(movieID: string): Observable<any>{
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || '{}');
+
+    return this.http.delete(apiUrl + "users/" + user.Username + "/favorites/" + movieID, {
+      headers: new HttpHeaders(
+        {
+          Authorization: "Bearer " + token,
+        })
+    }).pipe(
+    map(this.extractResponseData),
     catchError(this.handleError)
     );
   }
@@ -94,7 +166,7 @@ export class fetchApiDataService {
    // Non-typed response extraction
    private extractResponseData(res: Response): any {
     const body = res;
-    return body || { };
+    return body || {};
    }
 
 
