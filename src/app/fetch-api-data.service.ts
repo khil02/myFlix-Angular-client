@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/internal/operators';
+import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 //Delcaring the api url that will provide data for the client app
 const apiUrl = "https://my-flix882023-9b8843449882.herokuapp.com/";
@@ -19,7 +18,7 @@ export class fetchApiDataService {
    //Making the api call for the user registration endpoint
   public userRegistration(userDetails: any): Observable<any>{
     console.log(userDetails);
-    return this.http.post(apiUrl + 'users', userDetails).pipe(
+    return this.http.post(apiUrl + 'users/register', userDetails).pipe(
       catchError(this.handleError)
     );
    }
@@ -164,7 +163,7 @@ export class fetchApiDataService {
   }
 
    // Non-typed response extraction
-   private extractResponseData(res: Response): any {
+   private extractResponseData(res: any): any {
     const body = res;
     return body || {};
    }
