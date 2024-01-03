@@ -14,18 +14,21 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { MatIconModule } from "@angular/material/icon";
+import { MatToolbarModule } from "@angular/material/toolbar"
 
 // Imports from components
 import { UserRegistrationFormComponent } from './user-registration-form/user-registration-form.component';
 import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
 import { MovieCardComponent } from './movie-card/movie-card.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 const appRoutes: Routes = [
   { path: "welcome", component: WelcomePageComponent },
   { path: "movies", component: MovieCardComponent },
-  //{ path: "profile", component: ProfileComponent},
+  { path: "profile", component: ProfilePageComponent},
   { path: "", redirectTo: "welcome", pathMatch: "prefix" },
 ];
 
@@ -35,7 +38,9 @@ const appRoutes: Routes = [
     UserRegistrationFormComponent,
     UserLoginFormComponent,
     MovieCardComponent,
-    WelcomePageComponent
+    WelcomePageComponent,
+    ProfilePageComponent,
+    NavbarComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -50,7 +55,8 @@ const appRoutes: Routes = [
     MatCardModule,
     MatFormFieldModule,
     MatSnackBarModule,
-    FormsModule
+    FormsModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

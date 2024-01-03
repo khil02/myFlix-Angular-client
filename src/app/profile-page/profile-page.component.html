@@ -1,0 +1,59 @@
+<div mat-card class="profile">
+    <mat-card-title>Profile <br/></mat-card-title>
+    <mat-card-content>
+        <mat-form-field>
+            <input
+            [(ngModel)] = "userData.Username"
+            matInput
+            placeholder="New username"
+            type="text"
+            name="username"
+            required
+            />
+        </mat-form-field>
+        <mat-form-field>
+            <input
+            [(ngModel)] = "userData.Password"
+            matInput
+            placeholder="New password"
+            type="password"
+            name="password"
+            required
+            />
+        </mat-form-field>
+        <mat-form-field>
+            <input
+            [(ngModel)] = "user.email"
+            matInput
+            placeholder="New email"
+            type="email"
+            name="email"
+            required
+            />
+        </mat-form-field>
+        <mat-form-field>
+            <input
+            [(ngModel)] = "user.birthday"
+            matInput
+            placeholder="update birthday"
+            type="date"
+            name="birth-date"
+            required
+            />
+        </mat-form-field>
+        <button
+        mat-button
+        color="primary"
+        (click)="updateUser()"
+        >Update</button>
+    </mat-card-content>
+    <mat-card-actions>
+        <button 
+        mat-raised-button 
+        (click)="deleteUser()"
+        color="warn"
+        >   
+            Delete Account
+        </button>
+    </mat-card-actions>
+</div>

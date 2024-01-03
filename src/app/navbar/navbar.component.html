@@ -1,0 +1,21 @@
+<div mat-toolbar *ngIf="isLoggedIn()">
+    <div mat-toolbar-row class="toolbar-items">
+        <a routerLink="/movies">
+            Movies
+        </a>
+        <a routerLink="/profile">
+            Profile
+        </a>
+        <!-- <button
+        class="toolbar-item"
+        mat-icon-button
+        (click)="navigateToProfile()"
+        >Profile 2</button> -->
+        <button
+         class="toolbar-item"
+         mat-icon-button
+         aria-label="Logout"
+         (click)="logoutUser()"
+         ><mat-icon>exit_to_app</mat-icon></button>
+    </div>
+</div>
