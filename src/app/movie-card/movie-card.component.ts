@@ -68,7 +68,6 @@ export class MovieCardComponent {
         duration: 2000,
       });
     });
-    console.log("added movie");
   }
 
   deleteFavoriteMovie(movieID: string): void {
