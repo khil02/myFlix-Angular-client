@@ -139,7 +139,10 @@ export class fetchApiDataService {
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user") || '{}');
 
-    user.FavoriteMoives.push(movieID);    
+    //adds movie to local favorites list and then stringifys user back up
+    user.FavoriteMovies.push(movieID);  
+    localStorage.setItem("user", JSON.stringify(user));
+
     return this.http.post(apiUrl + "users/" + user.Username + "/favorites/" + movieID, {
       headers: new HttpHeaders(
         {
@@ -155,6 +158,13 @@ export class fetchApiDataService {
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user") || '{}');
 
+    //removes movie from local favorites list and then stringifys user back up
+    const index = user.FavoriteMovies.indexOf(movieID);
+    if (index > -1){
+      user.FavoriteMovies.splice(index, 1);
+    }
+    localStorage.setItem("user", JSON.stringify(user));
+
     return this.http.delete(apiUrl + "users/" + user.Username + "/favorites/" + movieID, {
       headers: new HttpHeaders(
         {
@@ -165,6 +175,15 @@ export class fetchApiDataService {
     catchError(this.handleError)
     );
   }
+
+  // isFavoriteMovie(movieID: string): boolean {
+  //   const user = JSON.parse(localStorage.getItem("user") || '{}');
+  //   if (user) {
+  //     return user.FavoriteMovies.includes(movieID);
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
    // Non-typed response extraction
    private extractResponseData(res: any): any {

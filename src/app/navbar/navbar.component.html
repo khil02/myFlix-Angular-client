@@ -1,21 +1,25 @@
 <div mat-toolbar *ngIf="isLoggedIn()">
     <div mat-toolbar-row class="toolbar-items">
-        <a routerLink="/movies">
-            Movies
-        </a>
-        <a routerLink="/profile">
-            Profile
-        </a>
-        <!-- <button
-        class="toolbar-item"
-        mat-icon-button
-        (click)="navigateToProfile()"
-        >Profile 2</button> -->
+        <button 
+         mat-icon-button 
+         routerLink="/movies">
+            <mat-icon class="toolbar-item">movie</mat-icon>
+        </button>
+        <button 
+         mat-icon-button 
+         routerLink="/profile">
+            <mat-icon class="toolbar-item">person</mat-icon>
+        </button>
         <button
-         class="toolbar-item"
-         mat-icon-button
+         mat-icon-button 
          aria-label="Logout"
-         (click)="logoutUser()"
-         ><mat-icon>exit_to_app</mat-icon></button>
+         (click)="logoutUser()">
+            <mat-icon class="toolbar-item">exit_to_app</mat-icon>
+        </button>
+        <button 
+         class="toolbar-title"
+         mat-icon-button>
+            <span class="toolbar-item">myFlix</span>
+        </button>
     </div>
 </div>

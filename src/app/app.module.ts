@@ -23,6 +23,7 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
 
 
 const appRoutes: Routes = [
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
     MovieCardComponent,
     WelcomePageComponent,
     ProfilePageComponent,
-    NavbarComponent
+    NavbarComponent,
+    MovieDetailsComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
