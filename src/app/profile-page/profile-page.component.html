@@ -1,29 +1,33 @@
 <div mat-card class="profile">
-    <mat-card-title>Profile <br/></mat-card-title>
+    <mat-card-title>Profile: <br/>
+    <p>All required fields update when changes are made.</p></mat-card-title>
     <mat-card-content>
         <mat-form-field>
+            <mat-label> Username:</mat-label>
             <input
             [(ngModel)] = "userData.Username"
             matInput
-            placeholder="New username"
+            
             type="text"
             name="username"
             required
             />
         </mat-form-field>
         <mat-form-field>
+            <mat-label> Password:</mat-label>
             <input
             [(ngModel)] = "userData.Password"
             matInput
-            placeholder="New password"
+            placeholder="Password"
             type="password"
             name="password"
             required
             />
         </mat-form-field>
         <mat-form-field>
+            <mat-label> Email:</mat-label>
             <input
-            [(ngModel)] = "user.email"
+            [(ngModel)] = "userData.Email"
             matInput
             placeholder="New email"
             type="email"
@@ -32,17 +36,18 @@
             />
         </mat-form-field>
         <mat-form-field>
+            <mat-label> Birthday:</mat-label>
             <input
-            [(ngModel)] = "user.birthday"
+            [(ngModel)] = "userData.Birthday"
             matInput
             placeholder="update birthday"
             type="date"
             name="birth-date"
-            required
             />
         </mat-form-field>
+        <p>*required fields</p>
         <button
-        mat-button
+        mat-raised-button
         color="primary"
         (click)="updateUser()"
         >Update</button>
@@ -56,4 +61,11 @@
             Delete Account
         </button>
     </mat-card-actions>
+    <mat-card-content *ngFor="let movie of FaveMovies;">
+        <mat-card-header>
+            <mat-card-title>{{movie.title}}</mat-card-title>
+            <mat-card-subtitle>Directed by: {{movie.Director.name}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src={{movie.ImagePath}} alt={{movie.Title}}/>
+    </mat-card-content>
 </div>

@@ -17,14 +17,12 @@ export class fetchApiDataService {
 
    //Making the api call for the user registration endpoint
   public userRegistration(userDetails: any): Observable<any>{
-    console.log(userDetails);
     return this.http.post(apiUrl + 'users/register', userDetails).pipe(
       catchError(this.handleError)
     );
    }
 
   public userLogin(userDetails: any): Observable<any>{
-    console.log(userDetails);
     return this.http.post(apiUrl + 'login', userDetails).pipe(
       catchError(this.handleError)
     );
@@ -99,8 +97,8 @@ export class fetchApiDataService {
       headers: new HttpHeaders(
         {
           Authorization: "Bearer " + token,
-        })
-        
+        }
+      )
     }).pipe(map(this.extractResponseData), 
     catchError(this.handleError)
     );
@@ -110,7 +108,7 @@ export class fetchApiDataService {
     
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user") || '{}');
-    console.log((user._id));
+    //console.log((user._id));
     return this.http.delete(apiUrl + "users/" + user._id, {
       headers: new HttpHeaders(
         {
@@ -121,7 +119,7 @@ export class fetchApiDataService {
     );
   }
 
-  //this may won't work with how my API is set up, I'll have to see once I start testing
+  //this just gets the whole of the user, not specifically thier favorites.
   getUserFavorites(): Observable<any>{
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user") || '{}');

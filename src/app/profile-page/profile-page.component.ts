@@ -27,7 +27,7 @@ type User = {
 export class ProfilePageComponent implements OnInit {
 
   user: User = {};
-  FavoriteMovies: any[] = []; 
+  FaveMovies: any[] = []; 
 
   @Input() userData = { Username: "", Password: "", Email: "", Birthday: ""};
 
@@ -39,8 +39,8 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit(): void {
     const user = this.getUser();
-    //this.FavoriteMovies();
-    console.log("Page loaded")
+    const FaveMovies = this.getFavoriteMovies();
+    //console.log("Page loaded")
 
     if (!user._id) {
       this.router.navigate(["welcome"]);
@@ -64,23 +64,34 @@ export class ProfilePageComponent implements OnInit {
   updateUser(): void {
     this.fetchApiData.editUser(this.userData).subscribe((result) => {
       localStorage.setItem("user", JSON.stringify(result));
-
-      console.log("updateUser called");
-      console.log("result", result);
+      this.router.navigate(["movies"]).then(() => {
+        this.snackBar.open("Account updated successfully.", "OK", {
+          duration: 3000
+        });
+      })
+     
+      //setTimeout(location.reload.bind(location), 2000);
     })
   }
 
   deleteUser(): void {
     if(confirm("Are you sure you want to permantly delete account?")){
-      this.fetchApiData.deleteUser().subscribe((response) => {
-        console.log(response);
+      this.router.navigate(["welcome"]).then(() => {
         console.log("User Deleted");
         localStorage.clear();
         this.snackBar.open("Account deleted successfully.", "OK", {
           duration: 3000
         });
-        this.router.navigate(["welcome"]);
       })
+      this.fetchApiData.deleteUser().subscribe((response) => {
+        //console.log(response);
+      });
     }
+  }
+
+  getFavoriteMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((response) => {
+      this.FaveMovies = response.filter((movie: any) => this.user.FavoriteMovies?.includes(movie._id));
+    });
   }
 }
