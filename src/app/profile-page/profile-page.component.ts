@@ -57,10 +57,17 @@ export class ProfilePageComponent implements OnInit {
     };
   }
 
+  /**
+   * 
+   * @returns user object from local storage
+   */
   getUser(): User {
     return JSON.parse(localStorage.getItem("user") || '{}');
   }
 
+  /**
+   * updates user information
+   */
   updateUser(): void {
     this.fetchApiData.editUser(this.userData).subscribe((result) => {
       localStorage.setItem("user", JSON.stringify(result));
@@ -74,6 +81,9 @@ export class ProfilePageComponent implements OnInit {
     })
   }
 
+  /**
+   * Deletes user
+   */
   deleteUser(): void {
     if(confirm("Are you sure you want to permantly delete account?")){
       this.router.navigate(["welcome"]).then(() => {
@@ -89,6 +99,9 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
+  /**
+   * @returns movies on user's favorite movie list
+   */
   getFavoriteMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((response) => {
       this.FaveMovies = response.filter((movie: any) => this.user.FavoriteMovies?.includes(movie._id));

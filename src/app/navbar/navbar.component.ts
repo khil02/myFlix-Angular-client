@@ -13,11 +13,18 @@ export class NavbarComponent {
     public snackBar: MatSnackBar
   ) {}
 
+  /**
+   * 
+   * @returns boolean if user is logged in or not
+   */
   isLoggedIn(): boolean {
     const user = localStorage.getItem("user");
     return user !== null && user !== undefined;
   }
 
+  /**
+   * Logs out user by removing locally stored token and user object
+   */
   logoutUser(): void {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
@@ -28,6 +35,9 @@ export class NavbarComponent {
     this.router.navigate(["welcome"]);
   }
 
+  /**
+   * Navigates to user profile page
+   */
   navigateToProfile(): void {
     console.log("Button clicked")
 

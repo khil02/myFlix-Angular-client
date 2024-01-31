@@ -21,6 +21,10 @@ export class MovieCardComponent {
     this.getMovies();
   }
 
+  /**
+   * gets all movies
+   * @returns an array with all movie objects
+   */
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
@@ -28,6 +32,11 @@ export class MovieCardComponent {
       return this.movies;
     });
   }
+
+  /**
+   * Opens a dialog box for a movie's description
+   * @param movie 
+   */
   openDescriptionDialog(movie: any): void {
     this.dialog.open(MovieDetailsComponent, {
       data: {
@@ -36,6 +45,11 @@ export class MovieCardComponent {
       },
     });
   }
+
+  /**
+   * Opens a dialog about a movie's genre
+   * @param movie 
+   */
   openGenreDialog(movie: any): void {
     this.dialog.open(MovieDetailsComponent, {
       data: {
@@ -44,6 +58,11 @@ export class MovieCardComponent {
       },
     });
   }
+
+  /**
+   * Opens a dialog about a movie's director
+   * @param movie 
+   */
   openDirectorDialog(movie: any): void {
     this.dialog.open(MovieDetailsComponent, {
       data: {
@@ -53,6 +72,11 @@ export class MovieCardComponent {
     });
   }
 
+  /**
+   * 
+   * @param movieID 
+   * @returns a boolean if a movie is on the user's favorite list or not
+   */
   isFavoriteMovie(movieID: string): boolean {
     const user = JSON.parse(localStorage.getItem("user") || '{}');
     if (user) {
@@ -62,6 +86,10 @@ export class MovieCardComponent {
     }
   }
 
+  /**
+   * Adds a movie to the user's favorite list
+   * @param movieID 
+   */
   addFavoriteMovie(movieID: string): void {
     this.fetchApiData.addUserFavorites(movieID).subscribe(() => {
       this.snackBar.open("Added movie to favorites", "OK", {
@@ -70,6 +98,10 @@ export class MovieCardComponent {
     });
   }
 
+  /**
+   * Deletes a movie from the user's favorite list
+   * @param movieID 
+   */
   deleteFavoriteMovie(movieID: string): void {
     this.fetchApiData.deleteUserFavorites(movieID).subscribe(() => {
       this.snackBar.open("Removed movie from favorites", "OK", {
